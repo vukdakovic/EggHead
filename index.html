@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Egghaed React Tutorial</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+    <script type="text/babel">
+
+      // Lesson 5 - interpolation and spread operator
+      // const children = "Hello World";
+      // const className = "container"
+      // const props = {children, className}
+      // const element = (
+      //   <div {...props}/>
+      // );
+
+
+      // Lesson 6 - Render two elements side-by-side with React Fragments
+      // const element = <div className="container">Hello World</div>;
+
+      // const hello = <span className="container">Hello </span>;
+      // const world = <span className="container">World</span>;
+      // const helloWorld = [hello, world];
+      // ReactDOM.render(helloWorld, document.getElementById('root'));
+
+      // const hello = <span className="container">Hello </span>;
+      // const world = <span className="container">World</span>;
+      // const element = React.createElement(React.Fragment, null, hello, world)
+      // ReactDOM.render(element, document.getElementById('root'));
+
+      // const element = (
+      //   <React.Fragment>
+      //     <span>Hello</span> <span>World</span>
+      //   </React.Fragment>
+      //   )
+      // OR
+      // const element = (
+      //   <>
+      //     <span>Hello</span> <span>World</span>
+      //   </>
+      // )
+
+      // Lesson 7 - Create a Simple Reusable React Component
+      const Message = (props) => <div className="message">{props.children}</div>
+      const element =
+        <div className="container">
+          <Message>Hello World</Message>
+          <Message children="Goodbye World"/>
+        </div>;
+      ReactDOM.render(element, document.getElementById('root'));
+    </script>
+  </body>
+</html>
