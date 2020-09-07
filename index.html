@@ -104,15 +104,28 @@
       // setInterval(tick, 1000);
 
       // Lesson 11 - Style react components with className and inline styles
-      function Box(props) {
-        return <div className="box box--small" style={{fontStyle: "italic"}}/>
+      // This below, was how I made this work, but there is also a way with adding the exact same taken prop names
+      // function Box(props) {
+      //   return <div className={"box box--" + props.size} style={{fontStyle: "italic", backgroundColor: props.color}} children={props.size + " " +  props.color + " box"}/>
+      // }
+
+      // const element = (
+      //   <div>
+      //     <Box color="lightblue" size="small">Small blue box</Box>
+      //     <Box color="pink" size="medium">Small pink box</Box>
+      //     <Box color="orange" size="large">Small orange box</Box>
+      //   </div>
+      // )
+
+      function Box(className, style, ...rest) {
+        return <div className={"box " + className} style={{fontStyle: "italic", ...style}} {...rest}/>
       }
 
       const element = (
         <div>
-          <Box color="lightblue" >Small blue box</Box>
-          <Box color="pink" className="box box--small">Small pink box</Box>
-          <Box color="orange" className="box box--small">Small orange box</Box>
+          <Box style={{backgroundColor: "lightblue"}} className="box--small">Small blue box</Box>
+          <Box style={{backgroundColor: "pink"}} className="box--medium">Small pink box</Box>
+          <Box style={{backgroundColor: "orange"}} className="box--large">Small orange box</Box>
         </div>
       )
 
