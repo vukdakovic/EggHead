@@ -10,6 +10,7 @@
     <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+    <script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
     <script type="text/babel">
 
       // Lesson 5 - interpolation and spread operator
@@ -55,15 +56,67 @@
       //   </div>;
 
       // Lesson 8 - Create a Simple Reusable React Component
-      function SayHello({firstName, lastName}) {
-        return (
-          <div>
-            Hello {firstName} {lastName}!
-          </div>
-        )
+      // Prop types require a version for production - a babel plug in, so google that
+      // What all this is is just a functional component (SayHello) with props. And we use propTypes so that we can validate the variable we get from the user, so we would know he gave us what was required
+      // function SayHello({firstName, lastName}) {
+      //   return (
+      //     <div>
+      //       Hello {firstName} {lastName}!
+      //     </div>
+      //   )
+      // }
+      //
+      // SayHello.propTypes = {
+      //   firstName: PropTypes.string.isRequired,
+      //   lastName: PropTypes.string.isRequired
+      // }
+      //
+      // const element = <SayHello firstName={"Vuk"} lastName={"Dakovic"} className="container"/>
+
+
+      // Lesson 9 - Understand and use inter in JSX
+      // function CharacterCount({text}) {
+      //   return (
+      //     <div>
+      //       {'The text "' + text + '" has '}{text.length ? <strong>{text.length}</strong> : "No"}{' characters.'}
+      //     </div>
+      //   )
+      // }
+      //
+      // const element = (
+      //   <>
+      //     <CharacterCount text="Hello World" />
+      //     <CharacterCount text="" />
+      //   </>
+      // )
+
+
+      // Lesson 10 - Rerender a react application
+      // This lesson was about rendering the component, and figuring out what the best option is. React does most of the work for us, so we don't need to worry about rerendering uneeded data
+      // function tick() {
+      //   const time = new Date().toLocaleTimeString();
+      //   const element = <div className="container">{time}</div>
+      //
+      //   ReactDOM.render(element, document.getElementById('root'))
+      // }
+      //
+      // tick()
+      // setInterval(tick, 1000);
+
+      // Lesson 11 - Style react components with className and inline styles
+      function Box(props) {
+        return <div className="box box--small" style={{fontStyle: "italic"}}/>
       }
-      const element = <SayHello firstName={{"Vuk", "Dakovic"}} className="container"/>
-      ReactDOM.render(element, document.getElementById('root'));
+
+      const element = (
+        <div>
+          <Box color="lightblue" >Small blue box</Box>
+          <Box color="pink" className="box box--small">Small pink box</Box>
+          <Box color="orange" className="box box--small">Small orange box</Box>
+        </div>
+      )
+
+      ReactDOM.render(element, document.getElementById('root'))
     </script>
   </body>
 </html>
