@@ -117,19 +117,131 @@
       //   </div>
       // )
 
-      function Box(className, style, ...rest) {
-        return <div className={"box " + className} style={{fontStyle: "italic", ...style}} {...rest}/>
+      // function Box({className, style, ...rest}) {
+      //   return <div className={"box " + className} style={{fontStyle: "italic", ...style}} {...rest}/>
+      // }
+      //
+      // const element = (
+      //   <div>
+      //     <Box style={{backgroundColor: "lightblue"}} className="box--small">Small blue box</Box>
+      //     <Box style={{backgroundColor: "pink"}} className="box--medium">Small pink box</Box>
+      //     <Box style={{backgroundColor: "orange"}} className="box--large">Small orange box</Box>
+      //   </div>
+      // )
+
+      // Lesson 12 - Use Event Handlers with React
+      // In this lesson we leared that we can call on rerendering the entire app our selves with creating a function that does that, and adding that function to other methods
+      // const state = {eventCount: 0, username: ""};
+      //
+      // function App() {
+      //   return (
+      //     <div>
+      //       <p>There have been {state.eventCount} events.</p>
+      //       <p><button onClick={() => setState({eventCount: state.eventCount + 1})}>Click me!</button></p>
+      //       <p>You typed in: {state.username}</p>
+      //       <p><input onChange={(event) => setState({username: event.target.value})}/></p>
+      //     </div>
+      //   )
+      // }
+      //
+      // const setState = (newState) => {
+      //   Object.assign(state, newState);
+      //   renderApp();
+      // }
+      //
+      // const renderApp = () => {
+      //   ReactDOM.render(<App/>, document.getElementById('root'))
+      // }
+      //
+      // renderApp();
+
+      // Lesson 13 - Manage state in react components with useState hook & Lesson 14 - Manage side-effects in a React component with useEffect hook
+      // In this lesson we used react hooks - useState to create state data and change it, and useEffect to create sideEffects of state changing
+      // function App () {
+      //   const [name, setName] = React.useState(window.localStorage.getItem("name") ? window.localStorage.getItem("name") : "");
+      //   React.useEffect(() => {
+      //     window.localStorage.setItem("name", name)
+      //   })
+      //   return (
+      //     <div>
+      //       <form>
+      //         <label htmlFor="name">Name: </label>
+      //         <input id="name" value={name} onChange={() => {setName(event.target.value)}}/>
+      //       </form>
+      //       {name ? <strong>Hello {name}</strong> : "Please type in your name"}
+      //     </div>
+      //   )
+      // }
+
+      // Lesson 15 - Use a lazy initializer with useState - we use this when we put a function as the initial state in useState - which means that the useState will only call it when it is needed
+      // Lesson 16 - Manage the useEffect dependency array - we use the dependency array to make sure that the useEffect only happens when it should (when only some part of the state changes)
+      // function Greeting () {
+      //   const [name, setName] = React.useState(() =>
+      //     window.localStorage.getItem("name") || ''
+      //   );
+      //
+      //   React.useEffect(() => {
+      //     window.localStorage.setItem("name", name);
+      //     console.log("hello");
+      //   }, [name]);
+      //   return (
+      //     <div>
+      //       <form>
+      //         <label htmlFor="name">Name: </label>
+      //         <input id="name" value={name} onChange={() => {setName(event.target.value)}}/>
+      //       </form>
+      //       {name ? <strong>Hello {name}</strong> : "Please type in your name"}
+      //     </div>
+      //   )
+      // }
+      //
+      // function App () {
+      //   const [clicked, setClicked] = React.useState(0);
+      //   return (
+      //     <>
+      //     <button onClick={() => setClicked(clicked + 1)}>{clicked}</button>
+      //     <Greeting />
+      //     </>
+      //   );
+      // }
+
+      // Lesson 17 - Create reusable custom hooks
+      // In this lesson we created a separate function to save data in the local storage and then we called that function in other places
+      function useLocalStorageState (key, defaultValue = 0) {
+        const [state, setState] = React.useState(() => window.localStorage.getItem(key) || defaultValue);
+        console.log(state);
+
+        React.useEffect(() => {
+          window.localStorage.setItem(key, state);
+        }, [key, state]);
+
+        return [state, setState]
       }
 
-      const element = (
-        <div>
-          <Box style={{backgroundColor: "lightblue"}} className="box--small">Small blue box</Box>
-          <Box style={{backgroundColor: "pink"}} className="box--medium">Small pink box</Box>
-          <Box style={{backgroundColor: "orange"}} className="box--large">Small orange box</Box>
-        </div>
-      )
+      function Greeting () {
+        const [name, setName] = useLocalStorageState('name');
+        return (
+          <div>
+            <form>
+              <label htmlFor="name">Name: </label>
+              <input id="name" value={name} onChange={() => {setName(event.target.value)}}/>
+            </form>
+            {name ? <strong>Hello {name}</strong> : "Please type in your name"}
+          </div>
+        )
+      }
 
-      ReactDOM.render(element, document.getElementById('root'))
+      function App () {
+        const [clicked, setClicked] = useLocalStorageState('clicked', 0);
+        return (
+          <>
+          <button onClick={() => setClicked(clicked + 1)}>{clicked}</button>
+          <Greeting />
+          </>
+        );
+      }
+
+      ReactDOM.render(<App/>, document.getElementById('root'))
     </script>
   </body>
 </html>
