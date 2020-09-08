@@ -207,11 +207,15 @@
 
       // Lesson 17 - Create reusable custom hooks
       // In this lesson we created a separate function to save data in the local storage and then we called that function in other places
-      function useLocalStorageState (key, defaultValue = 0) {
+      function useLocalStorageState (key, defaultValue = "") {
         const [state, setState] = React.useState(() => window.localStorage.getItem(key) || defaultValue);
-        console.log(state);
+
 
         React.useEffect(() => {
+          const newState = JSON.parse(JSON.stringify(state))
+          if (Number.isInteger(Number(newState))) {
+            setState(Number(newState));
+          }
           window.localStorage.setItem(key, state);
         }, [key, state]);
 
