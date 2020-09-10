@@ -245,40 +245,67 @@
       // }
 
       // Lesson 18 - Manipulating the DOM with React refs
-      function Tilt ({ children }) {
-        const tiltRef = React.useRef();
-        React.useEffect(() => {
-          const tiltNode = tiltRef.current;
-          const vanillaTiltOptions = {
-            max: 25,
-            speed: 400,
-            glare: true,
-            'max-glare': 0.5
-          };
-          VanillaTilt.init(tiltNode, vanillaTiltOptions);
-          return () => {
-            tiltNode.vanillaTilt.destroy();
-          };
-        }, []);
-        return (
-          <div ref={tiltRef} className="tilt-root">
-          <div className="tilt-child">{children}</div>
-          </div>
-        );
-      }
+      // function Tilt ({ children }) {
+      //   const tiltRef = React.useRef();
+      //   React.useEffect(() => {
+      //     const tiltNode = tiltRef.current;
+      //     const vanillaTiltOptions = {
+      //       max: 25,
+      //       speed: 400,
+      //       glare: true,
+      //       'max-glare': 0.5
+      //     };
+      //     VanillaTilt.init(tiltNode, vanillaTiltOptions);
+      //     return () => {
+      //       tiltNode.vanillaTilt.destroy();
+      //     };
+      //   }, []);
+      //   return (
+      //     <div ref={tiltRef} className="tilt-root">
+      //     <div className="tilt-child">{children}</div>
+      //     </div>
+      //   );
+      // }
+      //
+      // function App () {
+      //   const [showTilt, setShowTilt] = React.useState(true);
+      //   return (
+      //     <div>
+      //     <p><input type="checkbox" checked={showTilt} onChange={() => setShowTilt(!showTilt)}/> show tilt</p>
+      //     {showTilt ? (
+      //       <Tilt>
+      //         <div className="totally-centered">vanilla-tilt.js</div>
+      //       </Tilt>
+      //     ) : null}
+      //     </div>
+      //   );
+      // }
 
+      // Lesson 19 - Understand the react hook flow
+      // In this lesson we were figuring out what get executed first. First we have the render, and render end, then we have the
+
+      // Lesson 20 - Make basic forms with React
+      // Lesson 21 - Make dynamic forms with React
       function App () {
-        const [showTilt, setShowTilt] = React.useState(true);
+        const inputEl = React.useRef();
+        const [username, setUsername] = React.useState("");
+
+        const usernameHandler = (event) => {
+          event.preventDefault();
+          setUsername(inputEl.current.value);
+        }
+
+        console.log(username);
+
         return (
-          <div>
-          <p><input type="checkbox" checked={showTilt} onChange={() => setShowTilt(!showTilt)}/> show tilt</p>
-          {showTilt ? (
-            <Tilt>
-              <div className="totally-centered">vanilla-tilt.js</div>
-            </Tilt>
-          ) : null}
-          </div>
-        );
+          <form onSubmit={usernameHandler}>
+            <div>
+              <label>Username:</label>
+              <input ref={inputEl} type="text"/>
+            </div>
+            <button type="submit">Submit</button>
+          </form>
+        )
       }
 
       ReactDOM.render(<App/>, document.getElementById('root'));
