@@ -284,27 +284,49 @@
       // Lesson 19 - Understand the react hook flow
       // In this lesson we were figuring out what get executed first. First we have the render, and render end, then we have the
 
-      // Lesson 20 - Make basic forms with React
-      // Lesson 21 - Make dynamic forms with React
+      // Lesson 20 - Make basic forms with React - we were learning to make basic forms
+      // Lesson 21 - Make dynamic forms with React - we were learning to dynamicaly change the form with some changes, using onChange event
+      // Lesson 22 - Controlling form values with react - we were learning to controll the value of input with double binding with value attribute
+      // function App () {
+      //   const inputEl = React.useRef();
+      //   const [username, setUsername] = React.useState("");
+      //   const [isLower, setIsLower] = React.useState(true);
+      //
+      //   const usernameHandler = (event) => {
+      //     event.preventDefault();
+      //     setUsername(inputEl.current.value);
+      //   }
+      //
+      //   const lowercaseHandler = () => {
+      //     inputEl.current.value = inputEl.current.value.toLowerCase();
+      //   }
+      //
+      //   console.log(username);
+      //
+      //   return (
+      //     <form onSubmit={usernameHandler}>
+      //       <div>
+      //         <label>Username:</label>
+      //         <input ref={inputEl} type="text" onChange={lowercaseHandler}/>
+      //       </div>
+      //       <button type="submit" disabled={!isLower}>Submit</button>
+      //       {isLower ? null : <p style={{color: "red"}}>Username must be in lowercase</p>}
+      //     </form>
+      //   )
+      // }
+
+      // Lesson 23 - Using react error boundaries to handle errors in React components
+      function Boom () {
+        throw new Error("CABOOM!")
+      }
+
       function App () {
-        const inputEl = React.useRef();
-        const [username, setUsername] = React.useState("");
-
-        const usernameHandler = (event) => {
-          event.preventDefault();
-          setUsername(inputEl.current.value);
-        }
-
-        console.log(username);
-
+        const [explode, setExplode] = React.useState(false);
         return (
-          <form onSubmit={usernameHandler}>
-            <div>
-              <label>Username:</label>
-              <input ref={inputEl} type="text"/>
-            </div>
-            <button type="submit">Submit</button>
-          </form>
+          <div>
+            <button onClick={() => {setExplode(!explode)}}>Bomb</button>
+            {explode ? <Boom/> : "Push the button"}
+          </div>
         )
       }
 
